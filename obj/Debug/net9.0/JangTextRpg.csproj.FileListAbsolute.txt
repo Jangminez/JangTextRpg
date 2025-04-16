@@ -1,0 +1,14 @@
+E:\C# Study\JangTextRpg\bin\Debug\net9.0\JangTextRpg.exe
+E:\C# Study\JangTextRpg\bin\Debug\net9.0\JangTextRpg.deps.json
+E:\C# Study\JangTextRpg\bin\Debug\net9.0\JangTextRpg.runtimeconfig.json
+E:\C# Study\JangTextRpg\bin\Debug\net9.0\JangTextRpg.dll
+E:\C# Study\JangTextRpg\bin\Debug\net9.0\JangTextRpg.pdb
+E:\C# Study\JangTextRpg\obj\Debug\net9.0\JangTextRpg.GeneratedMSBuildEditorConfig.editorconfig
+E:\C# Study\JangTextRpg\obj\Debug\net9.0\JangTextRpg.AssemblyInfoInputs.cache
+E:\C# Study\JangTextRpg\obj\Debug\net9.0\JangTextRpg.AssemblyInfo.cs
+E:\C# Study\JangTextRpg\obj\Debug\net9.0\JangTextRpg.csproj.CoreCompileInputs.cache
+E:\C# Study\JangTextRpg\obj\Debug\net9.0\JangTextRpg.dll
+E:\C# Study\JangTextRpg\obj\Debug\net9.0\refint\JangTextRpg.dll
+E:\C# Study\JangTextRpg\obj\Debug\net9.0\JangTextRpg.pdb
+E:\C# Study\JangTextRpg\obj\Debug\net9.0\JangTextRpg.genruntimeconfig.cache
+E:\C# Study\JangTextRpg\obj\Debug\net9.0\ref\JangTextRpg.dll
