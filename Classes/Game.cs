@@ -23,9 +23,10 @@ public class Game
         {
             Console.Clear();
             Console.WriteLine("당신은 현재 마을에 있습니다.");
+            Console.WriteLine("이곳에서 던전으로 들어가기 전 활동을 할 수 있습니다.");
 
             // 행동 동작 입력 대기
-            int choice = InputHandler.InputValidator("1. 상태보기\n2. 인벤토리\n3. 상점\n4. 던전입장\n5. 휴식하기", 1, 3);
+            int choice = InputHandler.InputValidator("1. 상태보기\n2. 인벤토리\n3. 상점\n4. 던전입장\n5. 휴식하기", 1, 5);
 
             switch (choice)
             {
@@ -42,11 +43,11 @@ public class Game
                     break;
 
                 case 4:
-                    // 던전 입장
+                    pages.DungeonPage(player); // 던전 페이지 이동
                     break;
 
                 case 5:
-                    // 휴식하기
+                    pages.RestPage(player); // 휴식하기 페이지 이동
                     break;
 
             }

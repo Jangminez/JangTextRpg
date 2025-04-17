@@ -3,14 +3,16 @@ public class ItemManager
     private static ItemManager instance;
     public static ItemManager Instance
     {
-        get 
+        get
         {
-            if(instance == null)
+            if (instance == null)
                 instance = new ItemManager();
             return instance;
         }
     }
-    public Item[] items;
+    public Item[] items; // 전체 아이템을 담아둘 배열
+    private Item? weaponEquipment = null; // 장착 중인 Weapon 타입 아이템
+    private Item? armorEquipment; // 장착 중인 Armor 타입 아이템
     public Item[] CreateItem()
     {
         items = new Item[] {
@@ -44,7 +46,7 @@ public class ItemManager
             Console.WriteLine("\n구매를 완료했습니다.");
 
             // 아이템 IsOwn 변경 및 인벤토리 추가
-            item.ChangeIsOwn();                 
+            item.ChangeIsOwn();
             player.inven.AddItemToInventory(item);
 
             onBought?.Invoke(true);
@@ -60,8 +62,8 @@ public class ItemManager
 
     public void SellItem(Player player, Item item)
     {
-        if(item.IsEquip)
-            SetEquipment(player, item);
+        if (item.IsEquip)
+            SetItemEquip(player, item);
 
         Console.WriteLine($"\n아이템을 판매하여 {item.itemStat.Cost * 0.85:F0} G를 얻었습니다.");
 
@@ -69,27 +71,74 @@ public class ItemManager
         item.ChangeIsOwn();
         player.inven.RemoveItemInventory(item);
         player.stats.Gold += (int)(item.itemStat.Cost * 0.85);
-        
+
         Thread.Sleep(1000);
     }
 
-    // 아이템 장착 및 해제
-    public void SetEquipment(Player player, Item item)
+    // 아이템 장착 및 해제 설정
+    public void SetItemEquip(Player player, Item item)
     {
-        // 장착 여부 변경
-        item.ChangeIsEquip();
+        if (!item.IsEquip)
+        {
+            ItemEquip(player, item);
+        }
+        else
+        {
+            ItemUnEquip(player, item);
+        }
+    }
 
-        // 장착 여부에 따른 스탯 +, -
+    // 아이템 장착
+    private void ItemEquip(Player player, Item item)
+    {
         switch (item.Type)
         {
             case ItemType.Weapon:
-                player.stats.ItemAttack += item.IsEquip ? item.itemStat.Value : -item.itemStat.Value;
+                // 장착 아이템이 있으면 해당 아이템 장착 해제
+                if (weaponEquipment != null)
+                    ItemUnEquip(player, weaponEquipment);
+
+                // 장착 아이템 변경
+                weaponEquipment = item;
+
+                // 아이템 장착 및 스탯 적용
+                item.ChangeIsEquip();
+                player.stats.ItemAttack += item.itemStat.Value;
                 break;
 
             case ItemType.Armor:
-                player.stats.ItemDefense += item.IsEquip ? item.itemStat.Value : -item.itemStat.Value;
+                // 장착 아이템이 있으면 해당 아이템 장착 해제
+                if (armorEquipment != null)
+                    ItemUnEquip(player, armorEquipment);
+
+                // 장착 아이템 변경
+                armorEquipment = item;
+
+                // 아이템 장착 및 스탯 적용
+                item.ChangeIsEquip();
+                player.stats.ItemDefense += item.itemStat.Value;
                 break;
         }
     }
 
+    // 아이템 해제
+    private void ItemUnEquip(Player player, Item item)
+    {
+        switch (item.Type)
+        {
+            case ItemType.Weapon:
+                // 장착 아이템 해제 및 스탯 제거
+                weaponEquipment = null;
+                item.ChangeIsEquip();
+                player.stats.ItemAttack -= item.itemStat.Value;
+                break;
+
+            case ItemType.Armor:
+                // 장착 아이템 해제 및 스탯 제거
+                armorEquipment = null;
+                item.ChangeIsEquip();
+                player.stats.ItemDefense -= item.itemStat.Value;
+                break;
+        }
+    }
 }
