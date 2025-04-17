@@ -26,7 +26,7 @@ public class Game
             Console.WriteLine("이곳에서 던전으로 들어가기 전 활동을 할 수 있습니다.");
 
             // 행동 동작 입력 대기
-            int choice = InputHandler.InputValidator("1. 상태보기\n2. 인벤토리\n3. 상점\n4. 던전입장\n5. 휴식하기", 1, 5);
+            int choice = InputHandler.InputValidator("1. 상태보기\n2. 인벤토리\n3. 상점\n4. 던전입장\n5. 휴식하기\n0. 게임종료", 0, 5);
 
             switch (choice)
             {
@@ -50,8 +50,14 @@ public class Game
                     pages.RestPage(player); // 휴식하기 페이지 이동
                     break;
 
+                case 0:
+                    isGameOver = true;
+                    break;
             }
         }
+
+        Console.WriteLine("\n게임이 종료됩니다...");
+        Thread.Sleep(1000);
     }
 
     // 플레이어 생성

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("JangTextRpg")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d2a4b677a05a1a2844704d609c1b4c8d8781921b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+84f05c29c64963af50bbe42b72f1e1e4a4b96a3a")]
 [assembly: System.Reflection.AssemblyProductAttribute("JangTextRpg")]
 [assembly: System.Reflection.AssemblyTitleAttribute("JangTextRpg")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
