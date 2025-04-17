@@ -57,18 +57,17 @@ public class Item
     // 아이템 정보 출력 (상점)
     public void PrintItemInfoShop()
     {
-        Console.WriteLine($"{itemStat.Name}    | {itemStat.GetItemType(Type)} +{itemStat.Value}    | {itemStat.Info}   | {(IsOwn ? "구매완료" : itemStat.Cost + " G")}");
+        Console.WriteLine($"{itemStat.Name, -10} | {itemStat.GetItemType(Type), -3} +{itemStat.Value, -3} | {itemStat.Info, -35} | {(IsOwn ? "구매완료" : itemStat.Cost + " G"), -10}");
     }
 
-    // 아이템 정보 출력 (상점 - 아이템 판매)
     public void PrintItemInfoSellItem()
     {
-        Console.WriteLine($"{itemStat.Name}    | {itemStat.GetItemType(Type)} +{itemStat.Value}    | {itemStat.Info}   | {itemStat.Cost * 0.85}");
+        Console.WriteLine($"{itemStat.Name, -10} | {itemStat.GetItemType(Type), -3} +{itemStat.Value, -3} | {itemStat.Info, -35} | {itemStat.Cost * 0.85 + " G", -10}");
     }
 
     // 아이템 정보 출력 (인벤토리)
     public void PrintItemInfoInventory()
     {
-        Console.WriteLine($"{(IsEquip ? "[E]" : "")}{itemStat.Name}    | {itemStat.GetItemType(Type)} +{itemStat.Value}    | {itemStat.Info}");
+        Console.WriteLine($"{(IsEquip ? "[E]" : "")} {itemStat.Name, -10} | {itemStat.GetItemType(Type), -3} +{itemStat.Value, -3} | {itemStat.Info}");
     }
 }

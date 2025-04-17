@@ -62,7 +62,7 @@ public abstract class Player
     public string Name { get; } // 플레이어 이름
     public Stats stats; // 플레이어 능력치
     private int clearTime = 0;  // 클리어 횟수
-    public Inventory inven = new Inventory();
+    public Inventory inven = new Inventory(); // 인벤토리 객체 생성
 
     // 생성자
     public Player(string Name, int jobType)
@@ -77,8 +77,7 @@ public abstract class Player
         stats.Defense = 5;
         stats.ItemDefense = 0;
         stats.Hp = 100;
-        stats.Gold = 15000;
-
+        stats.Gold = 1500;
     }
 
     // 상태창 페이지
@@ -88,6 +87,7 @@ public abstract class Player
         {
             // 콘솔 창 클리어 및 캐릭터 정보 표시
             Console.Clear();
+            BannerManager.Show("STATUS");
             Console.WriteLine("상태 보기");
             Console.WriteLine("캐릭터의 정보가 표시 됩니다.\n");
             Console.WriteLine($"닉네임: {Name}");

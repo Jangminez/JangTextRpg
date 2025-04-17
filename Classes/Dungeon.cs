@@ -20,6 +20,7 @@ public class Dungeon
 
     public void EnterDungeon(Player player, DungeonType type, Action<bool> onCleared)
     {
+        // 클리어 여부 변수
         bool isClear = false;
 
         // 권장 방어력 보다 높을 때 
@@ -69,6 +70,7 @@ public class Dungeon
         return isClear;
     }
 
+    // 던전 타입으로 string 가져오기
     public string GetTypeString(DungeonType type)
     {
         return type switch

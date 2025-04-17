@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Text;
 
 namespace JangTextRpg
 {
@@ -6,8 +7,11 @@ namespace JangTextRpg
     {
         static void Main(string[] args)
         {
-            Game game = new Game();
+            Console.OutputEncoding = Encoding.UTF8;
+            Console.InputEncoding = Encoding.UTF8;
 
+            Game game = new Game();
+            
             game.StartGame();
         }
     }

@@ -1,4 +1,6 @@
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.InteropServices;
+using Microsoft.VisualBasic;
 
 enum CatalogueType
 {
@@ -71,6 +73,7 @@ public class Pages
         while (true)
         {
             Console.Clear();
+            BannerManager.Show("INVENTORY");
             Console.WriteLine("인벤토리\n보유 중인 아이템을 관리할 수 있습니다.\n");
 
             Console.WriteLine("[아이템 목록]\n");
@@ -98,6 +101,7 @@ public class Pages
         while (true)
         {
             Console.Clear();
+            BannerManager.Show("INVENTORY");
             Console.WriteLine("인벤토리\n보유 중인 아이템을 관리할 수 있습니다.\n");
 
             Console.WriteLine("[아이템 목록]\n");
@@ -129,14 +133,16 @@ public class Pages
         {
             // 화면 출력
             Console.Clear();
+            BannerManager.Show("SHOP");
             Console.WriteLine("상점");
             Console.WriteLine("필요한 아이템을 구매할 수 있는 상점입니다.\n");
 
             Console.WriteLine($"[보유골드]\n{player.stats.Gold} G\n");
 
-            // 아이템 목록 출력
+
             Console.WriteLine("[아이템 목록]");
 
+            // 아이템 목록 출력
             PrintCatalogue(items, CatalogueType.Shop);
 
             // 선택 입력 유효성 검사
@@ -165,6 +171,7 @@ public class Pages
         {
             // 화면 출력
             Console.Clear();
+            BannerManager.Show("SHOP");
             Console.WriteLine("상점 - 아이템 구매");
             Console.WriteLine("필요한 아이템을 구매할 수 있는 상점입니다.\n");
 
@@ -205,6 +212,7 @@ public class Pages
         {
             // 화면 출력
             Console.Clear();
+            BannerManager.Show("SHOP");
             Console.WriteLine("상점 - 아이템 판매");
             Console.WriteLine("필요한 아이템을 구매할 수 있는 상점입니다.\n");
 
@@ -239,6 +247,7 @@ public class Pages
         while (true)
         {
             Console.Clear();
+            BannerManager.Show("REST");
             Console.WriteLine("휴식하기");
             Console.WriteLine($"{cost} G를 내면 체력을 회복할 수 있습니다. (보유 골드 : {player.stats.Gold} G)");
 
@@ -266,6 +275,7 @@ public class Pages
         while (true)
         {
             Console.Clear();
+            BannerManager.Show("DUNGEON");
             Console.WriteLine("던전 입장");
             Console.WriteLine("이곳에서 던전으로 들어가기전 활동을 할 수 있습니다.");
 
@@ -298,7 +308,7 @@ public class Pages
     // 던전 결과 페이지
     private void DungeonResultPage(Player player, DungeonType type)
     {
-        if(player.stats.Hp == 0)
+        if (player.stats.Hp == 0)
         {
             Console.WriteLine("\n지금은 숟가락들 힘도 없습니다...");
             Thread.Sleep(1000);
@@ -323,6 +333,7 @@ public class Pages
             if (onCleared)
             {
                 Console.Clear();
+                BannerManager.Show("DUNGEON");
                 Console.WriteLine("던전 클리어");
                 Console.WriteLine("축하합니다!!!");
                 Console.WriteLine($"{dungeon.GetTypeString(type)}을 클리어 하였습니다.\n");
@@ -341,6 +352,7 @@ public class Pages
             else
             {
                 Console.Clear();
+                BannerManager.Show("DUNGEON");
                 Console.WriteLine("던전 실패");
                 Console.WriteLine("이런!!!!");
                 Console.WriteLine($"{dungeon.GetTypeString(type)}을 클리어에 실패하였습니다.\n");

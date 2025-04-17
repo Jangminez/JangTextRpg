@@ -22,6 +22,7 @@ public class Game
         while (!isGameOver)
         {
             Console.Clear();
+            BannerManager.Show("VILLAGE");
             Console.WriteLine("당신은 현재 마을에 있습니다.");
             Console.WriteLine("이곳에서 던전으로 들어가기 전 활동을 할 수 있습니다.");
 
@@ -103,8 +104,8 @@ public class Game
         while (true)
         {
             Console.Clear();
+            BannerManager.Show("SPARTA");
             Console.WriteLine("스파르타 던전에 오신 여러분 환영합니다!!");
-
             // 이름 입력 유효성 검사
             string playerName = InputHandler.InputValidator(2, 10);
 
@@ -133,6 +134,7 @@ public class Game
         while (true)
         {
             Console.Clear();
+            BannerManager.Show("SPARTA");
             Console.WriteLine("스파르타 던전에 오신 여러분 환영합니다!!");
 
             Console.WriteLine("\n원하시는 직업을 고르세요.");
