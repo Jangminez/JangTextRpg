@@ -1,6 +1,61 @@
 public class Pages
 {
-#region 인벤토리 관련 페이지
+    #region  목록 출력 메서드
+
+    /// <summary>
+    /// 목록을 출력하는 메서드
+    /// </summary>
+    /// <param name="items"></param>
+    /// <param name="type">0 = Shop, 1 = SellItem, 2 = Inventory</param>
+    private void PrintCatalogue(IReadOnlyCollection<Item> items, int type)
+    {
+        foreach (Item item in items)
+        {
+            Console.Write("- ");
+            switch (type)
+            {
+                case 0: // 상점
+                    item.PrintItemInfoShop();
+                    break;
+
+                case 1: // 상점 - 아이템판매
+                    item.PrintItemInfoSellItem();
+                    break;
+
+                case 2: // 인벤토리
+                    item.PrintItemInfoInventory();
+                    break;
+            }
+        }
+    }
+
+    private void PrintCatalogueWithNumber(IReadOnlyCollection<Item> items, int type)
+    {
+        int idx = 1;
+        foreach (Item item in items)
+        {
+            Console.Write($"{idx} ");
+            switch (type)
+            {
+                case 0: // 상점
+                    item.PrintItemInfoShop();
+                    break;
+
+                case 1: // 상점 - 아이템판매
+                    item.PrintItemInfoSellItem();
+                    break;
+
+                case 2: // 인벤토리
+                    item.PrintItemInfoInventory();
+                    break;
+            }
+
+            idx++;
+        }
+    }
+    #endregion
+
+    #region 인벤토리 관련 페이지
     // 인벤토리 페이지
     public void InventoryPage(Player player)
     {
@@ -11,11 +66,8 @@ public class Pages
 
             Console.WriteLine("[아이템 목록]\n");
 
-            for (int i = 0; i < player.inven.Items.Count; i++)
-            {
-                Console.Write("- ");
-                player.inven.GetItemUseIndex(i).PrintItemInfoInventory();
-            }
+            // 아이템 목록 출력
+            PrintCatalogue(player.inven.Items, 2);
 
             int choice = InputHandler.InputValidator("\n1. 장착 관리\n0. 나가기", 0, 1);
 
@@ -41,11 +93,8 @@ public class Pages
 
             Console.WriteLine("[아이템 목록]\n");
 
-            for (int i = 0; i < player.inven.Items.Count; i++)
-            {
-                Console.Write($"{i + 1} ");
-                player.inven.GetItemUseIndex(i).PrintItemInfoInventory();
-            }
+            // 아이템 목록 출력
+            PrintCatalogueWithNumber(player.inven.Items, 2);
 
             int choice = InputHandler.InputValidator("0. 나가기", 0, player.inven.Items.Count);
 
@@ -59,9 +108,9 @@ public class Pages
             }
         }
     }
-#endregion
-    
-#region  상점 관련 페이지 
+    #endregion
+
+    #region  상점 관련 페이지 
     // 상점의 메인 화면
     public void ShopMainPage(Player player)
     {
@@ -76,13 +125,10 @@ public class Pages
 
             Console.WriteLine($"[보유골드]\n{player.stats.Gold} G\n");
 
+            // 아이템 목록 출력
             Console.WriteLine("[아이템 목록]");
 
-            foreach (Item item in items)
-            {
-                Console.Write("- ");
-                item.PrintItemInfoShop(false);
-            }
+            PrintCatalogue(items, 0);
 
             // 선택 입력 유효성 검사
             int choice = InputHandler.InputValidator("1. 아이템 구매\n2. 아이템 판매\n0. 나가기", 0, 2);
@@ -116,11 +162,9 @@ public class Pages
             Console.WriteLine($"[보유골드]\n{player.stats.Gold} G\n");
 
             Console.WriteLine("[아이템 목록]");
-            for (int i = 0; i < items.Length; i++)
-            {
-                Console.Write($"- {i + 1} ");
-                items[i].PrintItemInfoShop(false);
-            }
+            
+            // 아이템 목록 출력
+            PrintCatalogueWithNumber(items, 0);
 
             // 선택 입력 유효성 검사
             int choice = InputHandler.InputValidator("0. 나가기", 0, items.Length);
@@ -158,11 +202,9 @@ public class Pages
             Console.WriteLine($"[보유골드]\n{player.stats.Gold} G\n");
 
             Console.WriteLine("[아이템 목록]");
-            for (int i = 0; i < player.inven.Items.Count; i++)
-            {
-                Console.Write($"- {i + 1} ");
-                player.inven.GetItemUseIndex(i).PrintItemInfoShop(true);
-            }
+            
+            // 아이템 목록 출력
+            PrintCatalogueWithNumber(player.inven.Items, 1); 
 
             // 선택 입력 유효성 검사
             int choice = InputHandler.InputValidator("0. 나가기", 0, player.inven.Items.Count);
@@ -176,8 +218,9 @@ public class Pages
             }
         }
     }
-#endregion
+    #endregion
 
+    #region 휴식 관련 페이지
     // 휴식 페이지
     public void RestPage(Player player)
     {
@@ -185,4 +228,5 @@ public class Pages
         Console.WriteLine("휴식하기");
         Console.WriteLine($"500 G를 내면 체력을 회복할 수 있습니다. (보유 골드 : {player.stats.Gold} G");
     }
+    #endregion
 }

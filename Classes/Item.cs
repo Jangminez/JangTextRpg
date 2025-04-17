@@ -29,7 +29,7 @@ public struct ItemStats
 }
 public class Item
 {
-    
+
     public ItemType Type { get; }
     public ItemStats itemStat;
     public bool IsOwn { get; private set; }
@@ -55,12 +55,15 @@ public class Item
     }
 
     // 아이템 정보 출력 (상점)
-    public void PrintItemInfoShop(bool isSellTab)
+    public void PrintItemInfoShop()
     {
-        if(!isSellTab)
-            Console.WriteLine($"{itemStat.Name}    | {itemStat.GetItemType(Type)} +{itemStat.Value}    | {itemStat.Info}   | {(IsOwn ? "구매완료" : itemStat.Cost + " G")}");
-        else
-            Console.WriteLine($"{itemStat.Name}    | {itemStat.GetItemType(Type)} +{itemStat.Value}    | {itemStat.Info}   | {itemStat.Cost * 0.85}");
+        Console.WriteLine($"{itemStat.Name}    | {itemStat.GetItemType(Type)} +{itemStat.Value}    | {itemStat.Info}   | {(IsOwn ? "구매완료" : itemStat.Cost + " G")}");
+    }
+
+    // 아이템 정보 출력 (상점 - 아이템 판매)
+    public void PrintItemInfoSellItem()
+    {
+        Console.WriteLine($"{itemStat.Name}    | {itemStat.GetItemType(Type)} +{itemStat.Value}    | {itemStat.Info}   | {itemStat.Cost * 0.85}");
     }
 
     // 아이템 정보 출력 (인벤토리)
