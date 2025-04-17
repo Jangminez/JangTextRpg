@@ -12,7 +12,7 @@ public class ItemManager
     }
     public Item[] items; // 전체 아이템을 담아둘 배열
     private Item? weaponEquipment = null; // 장착 중인 Weapon 타입 아이템
-    private Item? armorEquipment; // 장착 중인 Armor 타입 아이템
+    private Item? armorEquipment = null; // 장착 중인 Armor 타입 아이템
     public Item[] CreateItem()
     {
         items = new Item[] {
@@ -79,13 +79,10 @@ public class ItemManager
     public void SetItemEquip(Player player, Item item)
     {
         if (!item.IsEquip)
-        {
             ItemEquip(player, item);
-        }
+
         else
-        {
             ItemUnEquip(player, item);
-        }
     }
 
     // 아이템 장착

@@ -133,17 +133,17 @@ public abstract class Player
         clearTime++;
 
         // 던전 클리어 횟수와 레벨이 같으면 레벨업
-        if (stats.Level == clearTime) 
+        if (stats.Level == clearTime)
             LevelUp();
     }
 
     // 레벨업
     private void LevelUp()
-    {   
+    {
         // 레벨 증가 및 클리어 횟수 초기화
         stats.Level++;
         clearTime = 0;
-  
+
         Console.WriteLine($"\n레벨업 하셨습니다!! 현재 레벨 -> Lv. {stats.Level}\n");
         Console.WriteLine($"공격력: {stats.Attack:F1} (+0.5)");
         Console.WriteLine($"방어력: {stats.Defense} (+ 1)");

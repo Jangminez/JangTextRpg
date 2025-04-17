@@ -9,6 +9,7 @@ namespace JangTextRpg
         {
             Console.OutputEncoding = Encoding.UTF8;
             Console.InputEncoding = Encoding.UTF8;
+            Console.ForegroundColor = ConsoleColor.Green;
 
             Game game = new Game();
             

@@ -31,7 +31,7 @@ public class Dungeon
         else
         {
             // 40% 확률로 실패
-            if (rand.Next(1, 10) <= 4)
+            if (rand.Next(100) <= 40)
                 isClear = DungeonClear(player, type, false);
 
             // 60% 확률로 성공

@@ -59,7 +59,8 @@ public class Item
     {
         Console.WriteLine($"{itemStat.Name, -10} | {itemStat.GetItemType(Type), -3} +{itemStat.Value, -3} | {itemStat.Info, -35} | {(IsOwn ? "구매완료" : itemStat.Cost + " G"), -10}");
     }
-
+    
+    // 아이템 정보 출력 (상점 - 아이템 판매)
     public void PrintItemInfoSellItem()
     {
         Console.WriteLine($"{itemStat.Name, -10} | {itemStat.GetItemType(Type), -3} +{itemStat.Value, -3} | {itemStat.Info, -35} | {itemStat.Cost * 0.85 + " G", -10}");
