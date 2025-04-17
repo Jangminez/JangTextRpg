@@ -1,13 +1,8 @@
 public class Game
 {
     public static bool isGameOver = false;
-    private Player player;  // 플레이어 객체
-    private Shop shop = new Shop();
-    private Pages pages = new Pages();
-
-    // 자주쓰이는 string 상수로 저장
-    public const string CHOICE_ACTION = "원하시는 행동을 선택하세요.";
-    public const string WRONG_CHOICE = "잘못된 입력입니다. 다시 입력해주세요.";
+    private Player player;  // 플레이어 객체 담아둘 변수 생성;
+    private Pages pages = new Pages(); // 페이지 객체 생성
 
     //Main에서 Game 클래스 객체 생성 후 메서드 실행
     public void StartGame()
@@ -30,7 +25,7 @@ public class Game
             Console.WriteLine("당신은 현재 마을에 있습니다.");
 
             // 행동 동작 입력 대기
-            int choice = InputValidator("1. 상태보기\n2. 인벤토리\n3. 상점\n4. 던전입장\n5. 휴식하기", CHOICE_ACTION, 1, 3);
+            int choice = InputHandler.InputValidator("1. 상태보기\n2. 인벤토리\n3. 상점\n4. 던전입장\n5. 휴식하기", 1, 3);
 
             switch (choice)
             {
@@ -43,7 +38,7 @@ public class Game
                     break;
 
                 case 3:
-                    shop.ShopMainPage(player); // 상점 페이지 이동
+                    pages.ShopMainPage(player); // 상점 페이지 이동
                     break;
 
                 case 4:
@@ -104,13 +99,13 @@ public class Game
             Console.WriteLine("스파르타 던전에 오신 여러분 환영합니다!!");
 
             // 이름 입력 유효성 검사
-            string playerName = InputValidator(2, 10);
+            string playerName = InputHandler.InputValidator(2, 10);
 
             Console.WriteLine($"\n입력하신 이름은 \"{playerName}\"입니다.\n");
             Console.WriteLine("정말로 이 이름을 사용하시겠습니까?");
 
             // 선택 입력 유효성 검사
-            int choice = InputValidator("1. 네\n2. 아니오", CHOICE_ACTION, 1, 2);
+            int choice = InputHandler.InputValidator("1. 네\n2. 아니오", 1, 2);
 
             switch (choice)
             {
@@ -135,13 +130,13 @@ public class Game
 
             Console.WriteLine("\n원하시는 직업을 고르세요.");
             // 선택 입력 유효성 검사
-            int jobType = InputValidator("1. 전사\n2. 마법사\n3. 궁수", "원하시는 직업의 번호를 선택하세요.", 1, 3);
+            int jobType = InputHandler.InputValidator("1. 전사\n2. 마법사\n3. 궁수", 1, 3);
 
             Console.WriteLine($"\n선택하신 직업은 \"{(JobType)jobType}\"입니다.\n");
             Console.WriteLine("이 직업을 선택하시겠습니까?");
 
             // 선택 입력 유효성 검사
-            int choice = InputValidator("1. 네\n2. 아니오", CHOICE_ACTION, 1, 2);
+            int choice = InputHandler.InputValidator("1. 네\n2. 아니오", 1, 2);
 
             switch (choice)
             {
@@ -153,34 +148,6 @@ public class Game
                     onSet?.Invoke(false); // 설정에 실패, 콜백 호출
                     break;
             }
-        }
-    }
-
-    // 플레이어 응답 대기 메서드 (행동 선택)
-    public static int InputValidator(string options, string msg, int min, int max)
-    {
-        while (true)
-        {
-            Console.Write($"\n{options}\n\n{msg}\n>> ");
-            if (int.TryParse(Console.ReadLine(), out int value) && value >= min && value <= max)
-                return value;
-
-            Console.WriteLine($"{WRONG_CHOICE}\n");
-        }
-    }
-
-    // 플레이어 응답 대기 메서드 (이름 입력)
-    public static string InputValidator(int minLength, int maxLength)
-    {
-        while (true)
-        {
-            Console.Write($"\n원하시는 이름을 입력해주세요.(길이{minLength} ~ {maxLength})\n>> ");
-            string inputName = Console.ReadLine();
-
-            // 이름 길이가 조건에 맞다면 return
-            if (inputName.Length >= minLength && inputName.Length <= maxLength) return inputName;
-
-            Console.WriteLine($"{WRONG_CHOICE}");
         }
     }
 }
