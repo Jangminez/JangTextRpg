@@ -57,7 +57,8 @@ public class Player
     private JobType jobType { get; } // 플레이어 직업
     public string Name { get; } // 플레이어 이름
     public Stats stats; // 플레이어 능력치
-    
+    public Inventory inven = new Inventory();
+
     // 생성자
     public Player(string Name, int jobType)
     {

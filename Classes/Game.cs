@@ -2,9 +2,8 @@ public class Game
 {
     public static bool isGameOver = false;
     private Player player;  // 플레이어 객체
-    private Item[] items; // 아이템을 관리할 배열
-    private ShopPages shopPages = new ShopPages();
-    private Inventory inven = new Inventory();
+    private Shop shop = new Shop();
+    private Pages pages = new Pages();
 
     // 자주쓰이는 string 상수로 저장
     public const string CHOICE_ACTION = "원하시는 행동을 선택하세요.";
@@ -23,7 +22,7 @@ public class Game
     void MainGame()
     {
         // 아이템 초기화 (초기에 한 번만 생성됨)
-        items = ItemManager.Instance.CreateItem();
+        ItemManager.Instance.CreateItem();
 
         while (!isGameOver)
         {
@@ -31,7 +30,7 @@ public class Game
             Console.WriteLine("당신은 현재 마을에 있습니다.");
 
             // 행동 동작 입력 대기
-            int choice = InputValidator("1. 상태보기\n2. 인벤토리\n3. 상점", CHOICE_ACTION, 1, 3);
+            int choice = InputValidator("1. 상태보기\n2. 인벤토리\n3. 상점\n4. 던전입장\n5. 휴식하기", CHOICE_ACTION, 1, 3);
 
             switch (choice)
             {
@@ -40,12 +39,21 @@ public class Game
                     break;
 
                 case 2:
-                    inven.InventoryPage(player, items); // 인벤토리 페이지 이동
+                    pages.InventoryPage(player); // 인벤토리 페이지 이동
                     break;
 
                 case 3:
-                    shopPages.ShopMainPage(player, items); // 상점 페이지 이동
+                    shop.ShopMainPage(player); // 상점 페이지 이동
                     break;
+
+                case 4:
+                    // 던전 입장
+                    break;
+
+                case 5:
+                    // 휴식하기
+                    break;
+
             }
         }
     }
@@ -69,7 +77,7 @@ public class Game
                 switch (jobType)
                 {
                     case 1: // 전사
-                        player = new Warrior(name, jobType); 
+                        player = new Warrior(name, jobType);
                         break;
 
                     case 2: // 마법사
