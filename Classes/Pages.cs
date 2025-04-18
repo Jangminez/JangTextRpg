@@ -18,34 +18,14 @@ public class Pages
     /// </summary>
     /// <param name="items"></param>
     /// <param name="type">0 = Shop, 1 = SellItem, 2 = Inventory</param>
-    private void PrintCatalogue(IReadOnlyCollection<Item> items, CatalogueType type)
-    {
-        foreach (Item item in items)
-        {
-            Console.Write("- ");
-            switch (type)
-            {
-                case CatalogueType.Shop: // 상점
-                    item.PrintItemInfoShop();
-                    break;
-
-                case CatalogueType.SellItem: // 상점 - 아이템판매
-                    item.PrintItemInfoSellItem();
-                    break;
-
-                case CatalogueType.Inventory: // 인벤토리
-                    item.PrintItemInfoInventory();
-                    break;
-            }
-        }
-    }
-
-    private void PrintCatalogueWithNumber(IReadOnlyCollection<Item> items, CatalogueType type)
+    private void PrintCatalogue(IReadOnlyCollection<Item> items, CatalogueType type, bool isNumber)
     {
         int idx = 1;
         foreach (Item item in items)
         {
-            Console.Write($"{idx} ");
+            if(isNumber) Console.Write($"{idx} ");
+            else Console.Write("- ");
+
             switch (type)
             {
                 case CatalogueType.Shop: // 상점
@@ -79,7 +59,7 @@ public class Pages
             Console.WriteLine("[아이템 목록]\n");
 
             // 아이템 목록 출력
-            PrintCatalogue(player.inven.Items, CatalogueType.Inventory);
+            PrintCatalogue(player.inven.Items, CatalogueType.Inventory, false);
 
             int choice = InputHandler.InputValidator("1. 장착 관리\n0. 나가기", 0, 1);
 
@@ -107,7 +87,7 @@ public class Pages
             Console.WriteLine("[아이템 목록]\n");
 
             // 아이템 목록 출력
-            PrintCatalogueWithNumber(player.inven.Items, CatalogueType.Inventory);
+            PrintCatalogue(player.inven.Items, CatalogueType.Inventory, true);
 
             int choice = InputHandler.InputValidator("0. 나가기", 0, player.inven.Items.Count);
 
@@ -143,7 +123,7 @@ public class Pages
             Console.WriteLine("[아이템 목록]");
 
             // 아이템 목록 출력
-            PrintCatalogue(items, CatalogueType.Shop);
+            PrintCatalogue(items, CatalogueType.Shop, false);
 
             // 선택 입력 유효성 검사
             int choice = InputHandler.InputValidator("1. 아이템 구매\n2. 아이템 판매\n0. 나가기", 0, 2);
@@ -180,7 +160,7 @@ public class Pages
             Console.WriteLine("[아이템 목록]");
 
             // 아이템 목록 출력
-            PrintCatalogueWithNumber(items, CatalogueType.Shop);
+            PrintCatalogue(items, CatalogueType.Shop, true);
 
             // 선택 입력 유효성 검사
             int choice = InputHandler.InputValidator("0. 나가기", 0, items.Length);
@@ -221,7 +201,7 @@ public class Pages
             Console.WriteLine("[아이템 목록]");
 
             // 아이템 목록 출력
-            PrintCatalogueWithNumber(player.inven.Items, CatalogueType.SellItem);
+            PrintCatalogue(player.inven.Items, CatalogueType.SellItem, true);
 
             // 선택 입력 유효성 검사
             int choice = InputHandler.InputValidator("0. 나가기", 0, player.inven.Items.Count);

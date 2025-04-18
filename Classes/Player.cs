@@ -21,19 +21,20 @@ public struct Stats
     private float attack;
     public float Attack
     {
-        // 기본 공격력 + 아이템 추가 공격력 반환
-        get => attack + itemAttack;
+        get => attack;
         set => attack = Math.Max(0, value);
     }
+    // 기본 공격력 + 아이템 추가 공격력 반환
+    public float FinalAttack {get => attack + itemAttack;}
 
     private int defense;
     public int Defense
     {
-        // 기본 방어력 + 아이템 추가 방어력 반환
-        get => defense + itemDefense;
+        get => defense;
         set => defense = Math.Max(0, value);
     }
-
+    // 기본 방어력 + 아이템 추가 방어력 반환
+    public int FinalDefense {get => defense + itemDefense;}
     private int itemAttack;
     public int ItemAttack
     {
@@ -144,7 +145,7 @@ public abstract class Player
         stats.Level++;
         clearTime = 0;
 
-        Console.WriteLine($"\n레벨업 하셨습니다!! 현재 레벨 -> Lv. {stats.Level}\n");
+        Console.WriteLine($"\n레벨업 하셨습니다!! \n\n현재 레벨 -> Lv. {stats.Level}\n");
         Console.WriteLine($"공격력: {stats.Attack:F1} (+0.5)");
         Console.WriteLine($"방어력: {stats.Defense} (+ 1)");
 

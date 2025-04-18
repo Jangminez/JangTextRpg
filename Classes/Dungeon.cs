@@ -24,7 +24,7 @@ public class Dungeon
         bool isClear = false;
 
         // 권장 방어력 보다 높을 때 
-        if (player.stats.Defense >= (int)type)
+        if (player.stats.FinalDefense >= (int)type)
             isClear = DungeonClear(player, type, true);
 
         // 권장 방어력 보다 낮을 때
@@ -46,9 +46,9 @@ public class Dungeon
     private bool DungeonClear(Player player, DungeonType type, bool isClear)
     {
         // 추가 체력 감소에 쓰일 방어력 차이
-        int defenseDiff = player.stats.Defense - (int)type;
+        int defenseDiff = player.stats.FinalDefense - (int)type;
         // 추가 보상 % 계산
-        float bonusReward = 1f + (rand.Next((int)player.stats.Attack, (int)(player.stats.Attack * 2)) / 100f);
+        float bonusReward = 1f + (rand.Next((int)player.stats.FinalAttack, (int)(player.stats.FinalAttack * 2)) / 100f);
 
         if (isClear)
         {
