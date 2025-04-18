@@ -1,5 +1,8 @@
+using System.Data;
+
 public enum JobType { Warrior = 1, Mage, Archer };
 
+[Serializable]
 public struct Stats
 {
     private int level;
@@ -57,10 +60,11 @@ public struct Stats
     }
 }
 
+[Serializable]
 public abstract class Player
 {
-    private JobType jobType { get; } // 플레이어 직업
-    public string Name { get; } // 플레이어 이름
+    private JobType jobType { get;} // 플레이어 직업
+    public string Name { get;} // 플레이어 이름
     public Stats stats; // 플레이어 능력치
     private int clearTime = 0;  // 클리어 횟수
     public Inventory inven = new Inventory(); // 인벤토리 객체 생성
@@ -113,6 +117,40 @@ public abstract class Player
         }
     }
 
+    // 플레이어의 정보들 PlayerSaveData로 변환
+    public PlayerSaveData ToSaveData()
+    {
+        PlayerSaveData data = new PlayerSaveData
+        {
+            Name = Name,
+            Job = jobType,
+            Level = stats.Level,
+            Hp = stats.Hp,
+            Attack = stats.Attack,
+            Defense = stats.Defense,
+            ItemAttack = stats.ItemAttack,
+            ItemDefense = stats.ItemDefense,
+            Gold = stats.Gold,
+            clearTime = clearTime,
+        };
+
+        // 저장된 데이터 반환
+        return data;
+    }
+
+    // 데이터 로드 및 적용
+    public void LoadData(PlayerSaveData data)
+    {
+        stats.Level = data.Level;
+        stats.Hp = data.Hp;
+        stats.Attack = data.Attack;
+        stats.Defense = data.Defense;
+        stats.ItemAttack = data.ItemAttack;
+        stats.ItemDefense = data.ItemDefense;
+        stats.Gold = data.Gold; 
+        clearTime = data.clearTime;
+    }
+
     // 휴식하기 메서드
     abstract public void Rest(int cost);
 
@@ -154,7 +192,7 @@ public abstract class Player
     }
 
     // enum 타입의 변수를 받아 string 으로 변환
-    private string GetJobType(JobType type)
+    public string GetJobType(JobType type)
     {
         return type switch
         {
@@ -163,6 +201,11 @@ public abstract class Player
             JobType.Archer => "궁수",
             _ => "백수"
         };
+    }
+
+    public JobType GetJobType()
+    {
+        return jobType;
     }
 
     // 아이템을 장착해 얻은 능력치를 string으로 변환

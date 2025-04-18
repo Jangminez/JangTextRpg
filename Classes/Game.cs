@@ -1,24 +1,47 @@
+using System.Xml.Linq;
+
 public class Game
 {
     public static bool isGameOver = false;
-    private Player player;  // 플레이어 객체 담아둘 변수 생성;
+    private Player? player;  // 플레이어 객체 담아둘 변수 생성;
     private Pages pages = new Pages(); // 페이지 객체 생성
 
     //Main에서 Game 클래스 객체 생성 후 메서드 실행
     public void StartGame()
     {
-        if (!isGameOver)
+        while (true)
         {
-            CreatePlayer();
+            Console.Clear();
+            BannerManager.Show("SPARTA");
+
+            int choice = InputHandler.InputValidator("1. 새로하기\n2. 이어하기", 1, 2);
+
+            if (choice == 1) // 새로 하기
+            {
+                ItemManager.Instance.items = ItemManager.Instance.CreateItem();
+                CreatePlayer();
+                break;
+            }
+
+            else    // 이어 하기
+            {
+                player = SaveData.LoadPlayer();
+
+                if (player != null)
+                {
+                    // 저장된 아이템 로드
+                    ItemManager.Instance.LoadItems(player);
+                    Console.WriteLine("게임 시작!");
+                    MainGame();
+                    break;
+                }
+            }
         }
     }
 
     // 게임의 메인 루프
     void MainGame()
     {
-        // 아이템 초기화 (초기에 한 번만 생성됨)
-        ItemManager.Instance.CreateItem();
-
         while (!isGameOver)
         {
             Console.Clear();
@@ -56,6 +79,16 @@ public class Game
                     break;
             }
         }
+
+        // 저장하고 나가기
+        SaveAndQuit();
+    }
+
+    private void SaveAndQuit()
+    {
+        // 플레이어와 아이템 정보 저장
+        SaveData.SavePlayer(player, () => Console.WriteLine("\n플레이어 정보 저장 완료!"));
+        ItemManager.Instance.SaveItems(() => Console.WriteLine("\n아이템 데이터 저장 완료!"));
 
         Console.WriteLine("\n게임이 종료됩니다...");
         Thread.Sleep(1000);

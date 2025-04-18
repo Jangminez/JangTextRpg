@@ -26,7 +26,35 @@ public class ItemManager
             new Item("최강의 갑옷", ItemType.Armor, 99, "하지만 얘도 최고다", 99999)
         };
 
+        SaveData.SaveItemsToFile(items);    // 새로 생성한 아이템 저장
+
         return items;
+    }
+
+    // 아이템 저장 완료되면 콜백 호출
+    public void SaveItems(Action onCompleted)
+    {
+        SaveData.SaveItemsToFile(items);
+
+        onCompleted?.Invoke();
+    }
+
+    // 아이템 불러오기
+    public void LoadItems(Player player)
+    {
+        items = SaveData.LoadItems();
+
+        foreach(var item in items)
+        {
+            if(item.IsEquip && item.Type == ItemType.Weapon)
+                weaponEquipment = item;
+
+            if(item.IsEquip && item.Type == ItemType.Armor)
+                armorEquipment = item;
+
+            if(item.IsOwn)
+                player.inven.AddItemToInventory(item);
+        }
     }
 
     // 아이템 구매
